@@ -1,0 +1,74 @@
+body {
+    background-color: lightyellow;
+    padding: 10px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+textarea,
+label,
+pre {
+    background-color: lightyellow;
+    color: dodgerblue;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+textarea {
+    resize: none;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+#demo {
+    overflow-x: auto;
+    overflow-y: auto;
+    height: 440px;
+    width: 90vw;
+    font-size: 20px;
+}
+
+#information {
+    height: 450px;
+}
+
+#option {
+    height: 34px;
+    width: 90vw;
+    font-size: 30px;
+}
+
+#content {
+    height: 100px;
+    width: 90vw;
+    font-size: 30px;
+}
+
+#control {
+    display: flex;
+    flex-direction: column;
+}
+
+#buttonBorder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.button {
+    background-color: dodgerblue;
+    color: white;
+    border-radius: 5px;
+    width: 150px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
