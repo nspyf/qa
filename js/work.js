@@ -43,6 +43,8 @@ document.getElementById("ask").onclick = function() {
     content = document.getElementById("content").value;
 
     var myHeaders = new Headers();
+    //myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Content-Type", "'application/x-www-form-urlencoded'");
 
     var raw = JSON.stringify({
         "username": GetUrlParam("user"),
@@ -74,6 +76,8 @@ document.getElementById("respond").onclick = function() {
     content = document.getElementById("content").value;
 
     var myHeaders = new Headers();
+    //myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Content-Type", "'application/x-www-form-urlencoded'");
     myHeaders.append("Token", localStorage.getItem("aqToken"));
 
     var raw = JSON.stringify({

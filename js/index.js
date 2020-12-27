@@ -5,7 +5,8 @@ document.getElementById("login").onclick = function() {
     password = document.getElementById("password").value;
 
     var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+    //myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Content-Type", "'application/x-www-form-urlencoded'");
 
     var raw = JSON.stringify({
         "username": username,
