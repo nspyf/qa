@@ -1,4 +1,4 @@
-var API = "http://127.0.0.1:91";
+var API = "47.102.204.136:91";
 
 document.getElementById("register").onclick = function() {
     username = document.getElementById("username").value;
