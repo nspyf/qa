@@ -5,6 +5,7 @@ function loadDemo() {
 
     var requestOptions = {
         method: 'GET',
+        mode: 'cors'
     };
 
     fetch(API + "/information?user=" + GetUrlParam("user"), requestOptions)
@@ -43,8 +44,7 @@ document.getElementById("ask").onclick = function() {
     content = document.getElementById("content").value;
 
     var myHeaders = new Headers();
-    //myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
         "username": GetUrlParam("user"),
@@ -55,6 +55,7 @@ document.getElementById("ask").onclick = function() {
         method: 'POST',
         headers: myHeaders,
         body: raw,
+        mode: 'cors'
     };
 
     fetch(API + "/question", requestOptions)
@@ -76,8 +77,7 @@ document.getElementById("respond").onclick = function() {
     content = document.getElementById("content").value;
 
     var myHeaders = new Headers();
-    //myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Token", localStorage.getItem("aqToken"));
 
     var raw = JSON.stringify({
@@ -89,6 +89,7 @@ document.getElementById("respond").onclick = function() {
         method: 'POST',
         headers: myHeaders,
         body: raw,
+        mode: 'cors'
     };
 
     fetch(API + "/user/answer", requestOptions)

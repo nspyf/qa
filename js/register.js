@@ -10,8 +10,8 @@ document.getElementById("register").onclick = function() {
     }
 
     var myHeaders = new Headers();
-    //myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    myHeaders.append("Content-Type", "application/json");
+
 
     var raw = JSON.stringify({
         "username": username,
@@ -22,6 +22,7 @@ document.getElementById("register").onclick = function() {
         method: 'POST',
         headers: myHeaders,
         body: raw,
+        mode: 'cors'
     };
 
     fetch(API + "/register", requestOptions)
