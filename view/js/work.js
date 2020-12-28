@@ -118,7 +118,19 @@ document.getElementById("exist").onclick = function() {
     window.location.href = "./";
 }
 
-loadDemo()
+document.getElementById("copy").onclick = function() {
+    shareObj = document.getElementById("shareCopy");
+    shareObj.select();
+    document.execCommand("Copy");
+    alert("复制成功");
+}
 
-shareObj = document.getElementById("share");
-shareObj.innerText = window.location.toString();
+function main() {
+    loadDemo();
+    shareTextObj = document.getElementById("shareText");
+    shareTextObj.innerText = window.location.toString();
+    shareCopyObj = document.getElementById("shareCopy");
+    shareCopyObj.innerText = window.location.toString();
+}
+
+main();
