@@ -24,7 +24,8 @@ document.getElementById("login").onclick = function() {
         .then((response) => {
             console.log(response);
             if (response.status == "1") {
-                localStorage.setItem("aqToken", response.data.token)
+                localStorage.setItem("qaToken", response.data.token)
+                localStorage.setItem("qaUsername", username)
                 console.log(response.data.token);
                 alert("登录成功");
                 window.location.href = "./work.html?user=" + username;
@@ -33,4 +34,9 @@ document.getElementById("login").onclick = function() {
             }
         })
         .catch(error => console.log('error', error));
+}
+
+if (localStorage.getItem("qaToken") != null && localStorage.getItem("qaUsername") != null) {
+    alert("欢迎回来！")
+    window.location.href = "./work.html?user=" + localStorage.getItem("qaUsername");
 }

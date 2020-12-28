@@ -81,7 +81,7 @@ document.getElementById("respond").onclick = function() {
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Token", localStorage.getItem("aqToken"));
+    myHeaders.append("Token", localStorage.getItem("qaToken"));
 
     var raw = JSON.stringify({
         "id": option,
@@ -103,10 +103,19 @@ document.getElementById("respond").onclick = function() {
                 loadDemo();
                 alert("回复成功")
             } else {
-                alert("请求错误:" + response.message);
+                alert("请求错误:" + response.message + ".请尝试重新登录");
+                localStorage.removeItem("qaToken");
+                localStorage.removeItem("qaUsername");
+                window.location.href = "./";
             }
         })
         .catch(error => console.log('error', error));
+}
+
+document.getElementById("exist").onclick = function() {
+    localStorage.removeItem("qaToken");
+    localStorage.removeItem("qaUsername");
+    window.location.href = "./";
 }
 
 loadDemo()
