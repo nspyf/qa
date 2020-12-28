@@ -1,4 +1,4 @@
-var API = "https://47.102.204.136";
+var API = "http://47.102.204.136:91";
 
 function loadDemo() {
     demoObj = document.getElementById("demo");
@@ -12,12 +12,15 @@ function loadDemo() {
         .then(response => response.json())
         .then((response) => {
             console.log(response);
-            if (response.data[0] == undefined) {
-                demoObj.innerText = "还没有人给TA提问";
+            if (response.status == "1") {
+                if (response.data[0] == undefined) {
+                    demoObj.innerText = "还没有人给TA提问";
+                } else {
+                    demoObj.innerText = JSON.stringify(response.data, null, 2);
+                }
             } else {
-                demoObj.innerText = JSON.stringify(response.data, null, 2);
+                alert("请求错误:" + response.message);
             }
-
         })
         .catch(error => console.log('error', error));
 }
