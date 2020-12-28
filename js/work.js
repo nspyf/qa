@@ -1,4 +1,4 @@
-var API = "47.102.204.136:91";
+var API = "http://47.102.204.136:91";
 
 function loadDemo() {
     demoObj = document.getElementById("demo");

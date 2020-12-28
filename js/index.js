@@ -1,4 +1,4 @@
-var API = "47.102.204.136:91";
+var API = "http://47.102.204.136:91";
 
 document.getElementById("login").onclick = function() {
     username = document.getElementById("username").value;
@@ -16,7 +16,7 @@ document.getElementById("login").onclick = function() {
         method: 'POST',
         headers: myHeaders,
         body: raw,
-        mode: 'cors'
+        mode: "cors"
     };
 
     fetch(API + "/login", requestOptions)
