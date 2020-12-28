@@ -36,7 +36,11 @@ document.getElementById("login").onclick = function() {
         .catch(error => console.log('error', error));
 }
 
-if (localStorage.getItem("qaToken") != null && localStorage.getItem("qaUsername") != null) {
-    alert("欢迎回来！")
-    window.location.href = "./work.html?user=" + localStorage.getItem("qaUsername");
+function main() {
+    if (localStorage.getItem("qaToken") != null && localStorage.getItem("qaUsername") != null) {
+        alert("欢迎回来！");
+        window.location.href = "./work.html?user=" + localStorage.getItem("qaUsername");
+    }
 }
+
+main();
