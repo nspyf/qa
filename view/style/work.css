@@ -5,6 +5,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    font-size: 20px;
 }
 
 textarea,
@@ -37,15 +38,15 @@ pre {
 }
 
 #option {
-    height: 34px;
+    height: 24px;
     width: 90vw;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 #content {
-    height: 100px;
+    height: 80px;
     width: 90vw;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 #control {
