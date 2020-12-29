@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=0.8,maximum-scale=0.8,minimum-scale=0.8,user-scalable=no">
+    <link href="./style/work.css" type="text/css" rel="stylesheet">
+    <script src="./js/work.js" type="text/javascript" defer></script>
+    <title>匿名提问</title>
+</head>
+
+<body>
+    <div id="information">
+        <pre id="demo"></pre>
+    </div>
+    <div id="control">
+        <label>QuestionID(回复需要输入，提问不需要)</label>
+        <textarea id="option"></textarea>
+        <label>发送内容</label>
+        <textarea id="content"></textarea>
+        <div id="buttonBorder">
+            <a id="ask" class="button" href="javascript:;"><span>提问<span></a>
+            <a id="respond" class="button" href="javascript:;"><span>回复<span></a>
+            <a id="exist" class="button" href="javascript:;"><span>退出<span></a>
+        </div>
+        <label>-></label>
+        <label>注意：提问不要登录，回复要先登录</label>
+        <label>分享你的网址，邀请提问：</label>
+        <label id="share"><span id="shareText"></span>-><a id="copy"href="javascript:;"><span>复制<span></a></label>
+        <textarea id="shareCopy"></textarea>
+    </div>
+</body>
+
+</html>
