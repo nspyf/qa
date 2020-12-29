@@ -1,2 +1,0 @@
-# qa
-question and answer
