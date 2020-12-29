@@ -48,7 +48,7 @@ function tokenVerify() {
         headers: myHeaders,
     };
 
-    fetch(API + "/verification", requestOptions)
+    fetch(API + "/user/verification", requestOptions)
         .then(response => response.json())
         .then((response) => {
             if (response.status == "1") {
