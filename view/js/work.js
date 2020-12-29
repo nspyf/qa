@@ -1,6 +1,9 @@
 var API = "http://47.102.204.136:91";
 //var API = "http://127.0.0.1:91";
-var option = "-1";
+var optionQ = "-1";
+var optionA = "-1";
+var optionQData
+var optionAData
 
 function GetUrlParam(paraName) {
     var url = document.location.toString();
@@ -41,18 +44,18 @@ function loadDemo() {
                     questionLen = response.data.length;
                     for (i = 0; i < questionLen; i++) {
                         newA = document.createElement("a");
-                        newA.href = "javascript:chooseQ(\"" + response.data[i].QuestionID + "\",\"" + response.data[i].Question + "\");";
+                        newA.href = "javascript:chooseQ(\"" + response.data[i].id + "\",\"" + response.data[i].data + "\");";
                         newA.className = "question";
-                        newA.innerText = response.data[i].Question;
+                        newA.innerText = response.data[i].data;
                         demoObj.appendChild(newA);
 
-                        answerLen = response.data[i].Answer.length;
+                        answerLen = response.data[i].answer.length;
                         for (j = 0; j < answerLen; j++) {
-                            newSpan = document.createElement("span");
-                            newSpan.className = "answer";
-                            //newSpan.value = response.data[i].Answer[j];
-                            newSpan.innerText = response.data[i].Answer[j];
-                            demoObj.appendChild(newSpan);
+                            newA = document.createElement("a");
+                            newA.href = "javascript:chooseA(\"" + response.data[i].answer[j].id + "\",\"" + response.data[i].answer[j].data + "\");";
+                            newA.className = "answer";
+                            newA.innerText = response.data[i].answer[j].data;
+                            demoObj.appendChild(newA);
                         }
 
                         newBr = document.createElement("br");
@@ -97,9 +100,9 @@ document.getElementById("ask").onclick = function() {
 }
 
 document.getElementById("respond").onclick = function() {
-    if (option == "-1") {
+    if (optionQ == "-1") {
         alert("未选择问题");
-        return
+        return;
     }
     content = document.getElementById("content").value;
 
@@ -108,11 +111,12 @@ document.getElementById("respond").onclick = function() {
     myHeaders.append("Token", localStorage.getItem("qaToken"));
 
     var raw = JSON.stringify({
-        "id": option,
+        "id": optionQ,
         "data": content
     });
 
-    option = "-1";
+    optionQ = "-1";
+    optionA = "-1";
 
     var requestOptions = {
         method: 'POST',
@@ -136,9 +140,76 @@ document.getElementById("respond").onclick = function() {
         .catch(error => console.log('error', error));
 }
 
+document.getElementById("delete").onclick = function() {
+    if (optionQ == "-1" && optionA == "-1") {
+        alert("未选择问题");
+        return;
+    }
+
+    var id;
+    var router;
+
+    if (optionQ != "-1") {
+        choose = confirm("删除问题：" + optionQData);
+        if (choose == false) {
+            return;
+        }
+        id = optionQ;
+        router = "question";
+    } else if (optionA != "-1") {
+        choose = confirm("删除答案：" + optionAData);
+        if (choose == false) {
+            return;
+        }
+        id = optionA;
+        router = "answer";
+    }
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Token", localStorage.getItem("qaToken"));
+
+    var raw = JSON.stringify({
+        "id": id
+    });
+
+    optionQ = "-1";
+    optionA = "-1";
+
+    var requestOptions = {
+        method: 'Delete',
+        headers: myHeaders,
+        body: raw
+    };
+
+    fetch(API + "/user/" + router, requestOptions)
+        .then(response => response.json())
+        .then((response) => {
+            if (response.status == "1") {
+                loadDemo();
+                alert("删除成功")
+            } else {
+                alert("请求错误:" + response.message + ".请尝试重新登录");
+                localStorage.removeItem("qaToken");
+                localStorage.removeItem("qaUsername");
+                window.location.href = "../";
+            }
+        })
+        .catch(error => console.log('error', error));
+}
+
 function chooseQ(id, question) {
-    option = id;
+    optionQ = id;
+    optionA = "-1";
+    optionQData = question;
     alert("已选择问题：" + question)
+}
+
+function chooseA(id, answer) {
+    optionQ = "-1";
+    optionA = id;
+    optionAData = answer;
+    alert("已选择答案：" + answer)
 }
 
 document.getElementById("exist").onclick = function() {

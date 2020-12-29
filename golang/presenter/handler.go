@@ -27,6 +27,24 @@ func getClaims(c *gin.Context) (*map[string]interface{},error) {
 	return &publicObj,nil
 }
 
+func getIDFromClaims(c *gin.Context) (interface{},error) {
+	claims,ok := c.Get("claims")
+	if ok == false {
+		return nil,errors.New("get claims from context failed")
+	}
+
+	claimsObj, ok := claims.(util.Claims)
+	if ok == false {
+		return nil,errors.New("claims transform failed")
+	}
+
+	publicObj, ok := claimsObj.Public.(map[string]interface{})
+	if ok == false {
+		return nil,errors.New("public of claims transform failed")
+	}
+	return publicObj["ID"],nil
+}
+
 func register() gin.HandlerFunc {
 	return func (c *gin.Context) {
 		req := &req_mod.Register{}
@@ -167,38 +185,15 @@ func answer() gin.HandlerFunc {
 			return
 		}
 
-
-
-		claims,ok := c.Get("claims")
-		if ok == false {
+		userID,err := getIDFromClaims(c)
+		if err != nil {
 			c.JSON(http.StatusInternalServerError,gin.H{
 				"status": -1,
-				"message": "get claims from context failed",
+				"message": err.Error(),
 			})
-			return
 		}
 
-		claimsObj, ok := claims.(util.Claims)
-		if ok == false {
-			c.JSON(http.StatusInternalServerError,gin.H{
-				"status": -1,
-				"message": "claims transform failed",
-			})
-			return
-		}
-
-		publicObj, ok := claimsObj.Public.(map[string]interface{})
-		if ok == false {
-			c.JSON(http.StatusInternalServerError,gin.H{
-				"status": -1,
-				"message": "public of claims transform failed",
-			})
-			return
-		}
-
-
-
-		err = serv.Answer(publicObj["ID"],req)
+		err = serv.Answer(userID,req)
 		if err != nil {
 			c.JSON(http.StatusForbidden,gin.H{
 				"status": -1,
@@ -210,6 +205,80 @@ func answer() gin.HandlerFunc {
 		c.JSON(http.StatusOK,gin.H{
 			"status": 1,
 			"message": "post answer successfully",
+		})
+		return
+	}
+}
+
+func deleteQuestion() gin.HandlerFunc {
+	return func (c *gin.Context) {
+		req := &req_mod.DeleteQuestion{}
+		err := util.DecodeReader(c.Request.Body,&req)
+		if err != nil {
+			c.JSON(http.StatusBadRequest,gin.H{
+				"status": -1,
+				"message": "JSON error",
+			})
+			return
+		}
+
+		userID,err := getIDFromClaims(c)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError,gin.H{
+				"status": -1,
+				"message": err.Error(),
+			})
+		}
+
+		err = serv.DeleteQuestion(userID,req)
+		if err != nil {
+			c.JSON(http.StatusForbidden,gin.H{
+				"status": -1,
+				"message": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK,gin.H{
+			"status": 1,
+			"message": "delete question successfully",
+		})
+		return
+	}
+}
+
+func deleteAnswer() gin.HandlerFunc {
+	return func (c *gin.Context) {
+		req := &req_mod.DeleteAnswer{}
+		err := util.DecodeReader(c.Request.Body,&req)
+		if err != nil {
+			c.JSON(http.StatusBadRequest,gin.H{
+				"status": -1,
+				"message": "JSON error",
+			})
+			return
+		}
+
+		userID,err := getIDFromClaims(c)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError,gin.H{
+				"status": -1,
+				"message": err.Error(),
+			})
+		}
+
+		err = serv.DeleteAnswer(userID,req)
+		if err != nil {
+			c.JSON(http.StatusForbidden,gin.H{
+				"status": -1,
+				"message": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK,gin.H{
+			"status": 1,
+			"message": "delete answer successfully",
 		})
 		return
 	}

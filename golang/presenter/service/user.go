@@ -82,16 +82,19 @@ func Information(username string) (interface{},error) {
 		}
 		e.RetrieveArrByStruct(getAnswer,tarAnswer)
 
-		answer := make([]string,0)
+		answer := make([]res_mod.Answer,0)
 		answerLen := len(*getAnswer)
 		for j:=0;j<answerLen;j++ {
-			answer = append(answer,(*getAnswer)[j].Data)
+			answer = append(answer,res_mod.Answer{
+				ID: strconv.Itoa(int((*getAnswer)[j].ID)),
+				Data: (*getAnswer)[j].Data,
+			})
 		}
 
 		newQA := &res_mod.QA{
-			QuestionID: strconv.Itoa(int((*getQuestion)[i].ID)),
-			Question:   (*getQuestion)[i].Data,
-			Answer:     answer,
+			ID: strconv.Itoa(int((*getQuestion)[i].ID)),
+			Data: (*getQuestion)[i].Data,
+			Answer: answer,
 		}
 		data = append(data,*newQA)
 	}
@@ -141,7 +144,7 @@ func Answer(ID interface{},req *req_mod.Answer) error {
 
 	UserIdUint, err := strconv.ParseUint(strconv.Itoa(int(uint(ID.(float64)))),10,32)
 	if err != nil {
-		return nil
+		return errors.New("id error")
 	}
 
 	if getQuestion.UserID != uint(UserIdUint) {
@@ -153,6 +156,80 @@ func Answer(ID interface{},req *req_mod.Answer) error {
 		Data: req.Data,
 	}
 	e.Creat(createData)
+
+	return nil
+}
+
+func DeleteQuestion(ID interface{},req *req_mod.DeleteQuestion) error {
+	if req.ID == "" {
+		return errors.New("id can't be blank")
+	}
+
+	questionIdUint, err := strconv.ParseUint(req.ID,10,32)
+	if err != nil {
+		return errors.New("id error")
+	}
+	getQuestion := &db_mod.Question{}
+	e.RetrieveByID(getQuestion,uint(questionIdUint))
+	if getQuestion.ID == 0 {
+		return errors.New("question don't exist")
+	}
+
+	UserIdUint, err := strconv.ParseUint(strconv.Itoa(int(uint(ID.(float64)))),10,32)
+	if err != nil {
+		return errors.New("id error")
+	}
+
+	if getQuestion.UserID != uint(UserIdUint) {
+		return errors.New("no right to delete question")
+	}
+
+	getAnswer := &[]db_mod.Answer{}
+	tarAnswer := &db_mod.Answer{
+		Question: (*getQuestion).ID,
+	}
+	e.RetrieveArrByStruct(getAnswer,tarAnswer)
+	answerLen := len(*getAnswer)
+	for i:=0;i<answerLen;i++ {
+		e.Delete(&(*getAnswer)[i])
+	}
+
+	e.Delete(getQuestion)
+
+	return nil
+}
+
+func DeleteAnswer(ID interface{},req *req_mod.DeleteAnswer) error {
+	if req.ID == "" {
+		return errors.New("id can't be blank")
+	}
+
+	AnswerIdUint, err := strconv.ParseUint(req.ID,10,32)
+	if err != nil {
+		return errors.New("id error")
+	}
+	getAnswer := &db_mod.Answer{}
+	e.RetrieveByID(getAnswer,uint(AnswerIdUint))
+	if getAnswer.ID == 0 {
+		return errors.New("answer don't exist")
+	}
+
+	getQuestion := &db_mod.Question{}
+	e.RetrieveByID(getQuestion,getAnswer.Question)
+	if getQuestion.ID == 0 {
+		return errors.New("answer's question don't exist")
+	}
+
+	UserIdUint, err := strconv.ParseUint(strconv.Itoa(int(uint(ID.(float64)))),10,32)
+	if err != nil {
+		return errors.New("id error")
+	}
+
+	if getQuestion.UserID != uint(UserIdUint) {
+		return errors.New("no right to delete Answer")
+	}
+
+	e.Delete(getAnswer)
 
 	return nil
 }

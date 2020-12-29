@@ -19,3 +19,11 @@ type Answer struct {
 	ID		string	`json:"id"`
 	Data	string	`json:"data"`
 }
+
+type DeleteQuestion struct {
+	ID	string	`json:"id"`
+}
+
+type DeleteAnswer struct {
+	ID	string	`json:"id"`
+}

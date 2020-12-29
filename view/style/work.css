@@ -36,7 +36,7 @@ pre {
     overflow-x: auto;
     overflow-y: auto;
     line-height: 50px;
-    height: 50vh;
+    height: 45vh;
     width: 90vw;
     font-size: 20px;
 }
@@ -50,6 +50,8 @@ pre {
 #control {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #buttonBorder {
@@ -65,7 +67,7 @@ pre {
     background-color: dodgerblue;
     color: white;
     border-radius: 5px;
-    width: 100px;
+    width: 18vw;
     height: 36px;
     display: flex;
     align-items: center;
@@ -101,4 +103,5 @@ pre {
     border-radius: 7px;
     padding: 7px;
     color: rgb(100, 100, 100);
+    text-decoration: none;
 }

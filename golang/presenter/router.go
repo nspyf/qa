@@ -19,6 +19,9 @@ func Run() {
 
 	user.POST("/answer",answer())
 
+	user.DELETE("/question",deleteQuestion())
+	user.DELETE("/answer",deleteAnswer())
+
 	err := e.Run(":"+config.Port)
 	util.DoErr(err)
 	return
