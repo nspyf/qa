@@ -34,11 +34,36 @@ document.getElementById("login").onclick = function() {
         .catch(error => console.log('error', error));
 }
 
-function main() {
-    if (localStorage.getItem("qaToken") != null && localStorage.getItem("qaUsername") != null) {
-        alert("欢迎回来！");
-        window.location.href = "./user?user=" + localStorage.getItem("qaUsername");
+function tokenVerify() {
+    if (localStorage.getItem("qaToken") == null || localStorage.getItem("qaUsername") == null) {
+        return;
     }
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Token", localStorage.getItem("qaToken"));
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+    };
+
+    fetch(API + "/verification", requestOptions)
+        .then(response => response.json())
+        .then((response) => {
+            if (response.status == "1") {
+                alert("欢迎回来！");
+                window.location.href = "./user?user=" + localStorage.getItem("qaUsername");
+            } else {
+                alert("令牌失效：" + response.message + ".请重新登录");
+                return;
+            }
+        })
+        .catch(error => console.log('error', error));
+}
+
+function main() {
+    tokenVerify();
 }
 
 main();

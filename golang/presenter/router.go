@@ -17,6 +17,7 @@ func Run() {
 	e.POST("/login",login())
 	e.POST("/question",question())
 
+	user.GET("/verification",verify())
 	user.POST("/answer",answer())
 
 	user.DELETE("/question",deleteQuestion())

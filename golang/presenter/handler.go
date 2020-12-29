@@ -173,6 +173,15 @@ func question() gin.HandlerFunc {
 	}
 }
 
+func verify() gin.HandlerFunc {
+	return func (c *gin.Context) {
+		c.JSON(http.StatusOK,gin.H{
+			"status": 1,
+			"message": "token verify successfully",
+		})
+	}
+}
+
 func answer() gin.HandlerFunc {
 	return func (c *gin.Context) {
 		req := &req_mod.Answer{}

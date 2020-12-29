@@ -231,6 +231,8 @@ function main() {
     shareTextObj.innerText = window.location.toString();
     shareCopyObj = document.getElementById("shareCopy");
     shareCopyObj.innerText = window.location.toString();
+    hostObj = document.getElementById("host");
+    hostObj.innerText = GetUrlParam("user");
 }
 
 main();
