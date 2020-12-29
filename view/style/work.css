@@ -25,16 +25,17 @@ pre {
     word-wrap: break-word;
 }
 
+#information {
+    height: 450px;
+    width: 90vw;
+}
+
 #demo {
     overflow-x: auto;
     overflow-y: auto;
     height: 430px;
     width: 90vw;
     font-size: 20px;
-}
-
-#information {
-    height: 450px;
 }
 
 #option {
@@ -55,6 +56,7 @@ pre {
 }
 
 #buttonBorder {
+    width: 90vw;
     display: flex;
     align-items: center;
     justify-content: center;
