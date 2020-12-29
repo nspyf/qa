@@ -15,8 +15,7 @@ document.getElementById("login").onclick = function() {
     var requestOptions = {
         method: 'POST',
         headers: myHeaders,
-        body: raw,
-        mode: "cors"
+        body: raw
     };
 
     fetch(API + "/login", requestOptions)

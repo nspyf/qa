@@ -22,7 +22,6 @@ document.getElementById("register").onclick = function() {
         method: 'POST',
         headers: myHeaders,
         body: raw,
-        mode: 'cors'
     };
 
     fetch(API + "/register", requestOptions)

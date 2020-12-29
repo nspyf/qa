@@ -1,10 +1,12 @@
 body {
     background-color: lightyellow;
+    color: dodgerblue;
     padding: 5px 0 0 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 20px;
 }
 
@@ -12,30 +14,17 @@ textarea,
 label,
 pre {
     background-color: lightyellow;
-    color: dodgerblue;
-    font-family: 'Courier New', Courier, monospace;
 }
 
 textarea {
     resize: none;
 }
 
-pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
-
 #information {
     height: 450px;
     width: 90vw;
-}
-
-#demo {
-    overflow-x: auto;
-    overflow-y: auto;
-    height: 430px;
-    width: 90vw;
-    font-size: 20px;
+    line-height: 50px;
+    word-wrap: break-word;
 }
 
 #option {
@@ -45,7 +34,7 @@ pre {
 }
 
 #content {
-    height: 80px;
+    height: 60px;
     width: 90vw;
     font-size: 20px;
 }
@@ -89,4 +78,18 @@ pre {
     width: 0px;
     height: 0px;
     resize: none;
+}
+
+.question {
+    background-color: wheat;
+    border-radius: 7px;
+    padding: 7px;
+    color: rgb(100, 100, 100);
+}
+
+.answer {
+    background-color: skyblue;
+    border-radius: 7px;
+    padding: 7px;
+    color: rgb(100, 100, 100);
 }
