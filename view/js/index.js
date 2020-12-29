@@ -1,5 +1,5 @@
-//var API = "http://47.102.204.136:91";
-var API = "http://127.0.0.1:91";
+var API = "http://47.102.204.136:91";
+//var API = "http://127.0.0.1:91";
 
 document.getElementById("login").onclick = function() {
     username = document.getElementById("username").value;
@@ -26,7 +26,7 @@ document.getElementById("login").onclick = function() {
                 localStorage.setItem("qaToken", response.data.token)
                 localStorage.setItem("qaUsername", username)
                 alert("登录成功");
-                window.location.href = "./work.html?user=" + username;
+                window.location.href = "./user?user=" + username;
             } else {
                 alert("请求错误:" + response.message);
             }
@@ -37,7 +37,7 @@ document.getElementById("login").onclick = function() {
 function main() {
     if (localStorage.getItem("qaToken") != null && localStorage.getItem("qaUsername") != null) {
         alert("欢迎回来！");
-        window.location.href = "./work.html?user=" + localStorage.getItem("qaUsername");
+        window.location.href = "./user?user=" + localStorage.getItem("qaUsername");
     }
 }
 

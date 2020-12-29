@@ -1,5 +1,5 @@
-//var API = "http://47.102.204.136:91";
-var API = "http://127.0.0.1:91";
+var API = "http://47.102.204.136:91";
+//var API = "http://127.0.0.1:91";
 
 document.getElementById("register").onclick = function() {
     username = document.getElementById("username").value;
@@ -30,7 +30,7 @@ document.getElementById("register").onclick = function() {
         .then((response) => {
             if (response.status == "1") {
                 alert("注册成功");
-                window.location.href = "./index.html";
+                window.location.href = "../";
             } else {
                 alert("请求错误:" + response.message);
             }

@@ -1,5 +1,5 @@
-//var API = "http://47.102.204.136:91";
-var API = "http://127.0.0.1:91";
+var API = "http://47.102.204.136:91";
+//var API = "http://127.0.0.1:91";
 var option = "-1";
 
 function GetUrlParam(paraName) {
@@ -130,7 +130,7 @@ document.getElementById("respond").onclick = function() {
                 alert("请求错误:" + response.message + ".请尝试重新登录");
                 localStorage.removeItem("qaToken");
                 localStorage.removeItem("qaUsername");
-                window.location.href = "./";
+                window.location.href = "../";
             }
         })
         .catch(error => console.log('error', error));
@@ -144,7 +144,7 @@ function chooseQ(id, question) {
 document.getElementById("exist").onclick = function() {
     localStorage.removeItem("qaToken");
     localStorage.removeItem("qaUsername");
-    window.location.href = "./";
+    window.location.href = "../";
 }
 
 document.getElementById("copy").onclick = function() {
