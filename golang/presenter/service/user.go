@@ -89,9 +89,9 @@ func Information(username string) (interface{},error) {
 		}
 
 		newQA := &res_mod.QA{
-			QuestionID: (*getQuestion)[i].ID,
-			Question: (*getQuestion)[i].Data,
-			Answer: answer,
+			QuestionID: strconv.Itoa(int((*getQuestion)[i].ID)),
+			Question:   (*getQuestion)[i].Data,
+			Answer:     answer,
 		}
 		data = append(data,*newQA)
 	}
@@ -129,7 +129,7 @@ func Answer(ID interface{},req *req_mod.Answer) error {
 
 	questionIdUint, err := strconv.ParseUint(req.ID,10,32)
 	if err != nil {
-		return nil
+		return errors.New("id error")
 	}
 
 	getQuestion := &db_mod.Question{}

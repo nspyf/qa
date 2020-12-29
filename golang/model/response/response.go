@@ -1,7 +1,7 @@
 package res_mod
 
 type QA struct {
-	QuestionID	uint
+	QuestionID	string
 	Question	string
 	Answer		[]string
 }

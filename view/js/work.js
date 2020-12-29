@@ -1,52 +1,6 @@
-var API = "http://47.102.204.136:91";
-
-function loadDemo() {
-    //demoObj = document.getElementById("demo");
-    infoObj = document.getElementById("information");
-
-    var requestOptions = {
-        method: 'GET'
-    };
-
-    fetch(API + "/information?user=" + GetUrlParam("user"), requestOptions)
-        .then(response => response.json())
-        .then((response) => {
-            console.log(response);
-            if (response.status == "1") {
-                if (response.data[0] == undefined) {
-                    demoObj.innerText = "还没有人给TA提问";
-                } else {
-                    //demoObj.innerText = JSON.stringify(response.data, null, 2);
-                    infoObj.innerHtml = "";
-
-                    questionLen = response.data.length;
-                    for (i = 0; i < questionLen; i++) {
-                        newSpan = document.createElement("span");
-                        newSpan.className = "question";
-                        newSpan.value = response.data[i].QuestionID;
-                        newSpan.innerText = response.data[i].Question;
-                        infoObj.appendChild(newSpan);
-
-                        answerLen = response.data[i].Answer.length;
-                        for (j = 0; j < answerLen; j++) {
-                            newSpan = document.createElement("span");
-                            newSpan.className = "answer";
-                            //newSpan.value = response.data[i].Answer[j];
-                            newSpan.innerText = response.data[i].Answer[j];
-                            infoObj.appendChild(newSpan);
-
-                            newBr = document.createElement("br");
-                            infoObj.appendChild(newBr);
-                        }
-                    }
-
-                }
-            } else {
-                alert("请求错误:" + response.message);
-            }
-        })
-        .catch(error => console.log('error', error));
-}
+//var API = "http://47.102.204.136:91";
+var API = "http://127.0.0.1:91";
+var option = "-1";
 
 function GetUrlParam(paraName) {
     var url = document.location.toString();
@@ -64,6 +18,52 @@ function GetUrlParam(paraName) {
     } else {
         return "";
     }
+}
+
+
+function loadDemo() {
+    demoObj = document.getElementById("demo");
+
+    var requestOptions = {
+        method: 'GET'
+    };
+
+    fetch(API + "/information?user=" + GetUrlParam("user"), requestOptions)
+        .then(response => response.json())
+        .then((response) => {
+            if (response.status == "1") {
+                if (response.data[0] == undefined) {
+                    demoObj.innerText = "还没有人给TA提问";
+                } else {
+                    //demoObj.innerText = JSON.stringify(response.data, null, 2);
+                    demoObj.innerText = ""; //内存泄露？
+
+                    questionLen = response.data.length;
+                    for (i = 0; i < questionLen; i++) {
+                        newA = document.createElement("a");
+                        newA.href = "javascript:chooseQ(\"" + response.data[i].QuestionID + "\",\"" + response.data[i].Question + "\");";
+                        newA.className = "question";
+                        newA.innerText = response.data[i].Question;
+                        demoObj.appendChild(newA);
+
+                        answerLen = response.data[i].Answer.length;
+                        for (j = 0; j < answerLen; j++) {
+                            newSpan = document.createElement("span");
+                            newSpan.className = "answer";
+                            //newSpan.value = response.data[i].Answer[j];
+                            newSpan.innerText = response.data[i].Answer[j];
+                            demoObj.appendChild(newSpan);
+                        }
+
+                        newBr = document.createElement("br");
+                        demoObj.appendChild(newBr);
+                    }
+                }
+            } else {
+                alert("请求错误:" + response.message);
+            }
+        })
+        .catch(error => console.log('error', error));
 }
 
 document.getElementById("ask").onclick = function() {
@@ -86,7 +86,6 @@ document.getElementById("ask").onclick = function() {
     fetch(API + "/question", requestOptions)
         .then(response => response.json())
         .then((response) => {
-            console.log(response);
             if (response.status == "1") {
                 loadDemo();
                 alert("提问成功");
@@ -98,7 +97,10 @@ document.getElementById("ask").onclick = function() {
 }
 
 document.getElementById("respond").onclick = function() {
-    option = document.getElementById("option").value;
+    if (option == "-1") {
+        alert("未选择问题");
+        return
+    }
     content = document.getElementById("content").value;
 
     var myHeaders = new Headers();
@@ -110,6 +112,8 @@ document.getElementById("respond").onclick = function() {
         "data": content
     });
 
+    option = "-1";
+
     var requestOptions = {
         method: 'POST',
         headers: myHeaders,
@@ -119,7 +123,6 @@ document.getElementById("respond").onclick = function() {
     fetch(API + "/user/answer", requestOptions)
         .then(response => response.json())
         .then((response) => {
-            console.log(response);
             if (response.status == "1") {
                 loadDemo();
                 alert("回复成功")
@@ -131,6 +134,11 @@ document.getElementById("respond").onclick = function() {
             }
         })
         .catch(error => console.log('error', error));
+}
+
+function chooseQ(id, question) {
+    option = id;
+    alert("已选择问题：" + question)
 }
 
 document.getElementById("exist").onclick = function() {

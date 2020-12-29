@@ -10,31 +10,39 @@ body {
     font-size: 20px;
 }
 
-textarea,
 label,
 pre {
     background-color: lightyellow;
+    color: dodgerblue;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
 }
 
 textarea {
+    color: dodgerblue;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    border: solid 10px rgb(252, 252, 197);
+    border-radius: 20px;
     resize: none;
 }
 
-#information {
-    height: 450px;
-    width: 90vw;
-    line-height: 50px;
-    word-wrap: break-word;
+pre {
+    white-space: pre-wrap;
+    word-break: break-all;
 }
 
-#option {
-    height: 24px;
+#demo {
+    overflow-x: auto;
+    overflow-y: auto;
+    line-height: 50px;
+    height: 440px;
     width: 90vw;
     font-size: 20px;
 }
 
 #content {
-    height: 60px;
+    height: 64px;
     width: 90vw;
     font-size: 20px;
 }
@@ -68,7 +76,7 @@ textarea {
 #copy {
     background-color: dodgerblue;
     color: white;
-    border-radius: 3px;
+    border-radius: 5px;
     padding: 4px;
     text-decoration: none;
 }
@@ -85,6 +93,7 @@ textarea {
     border-radius: 7px;
     padding: 7px;
     color: rgb(100, 100, 100);
+    text-decoration: none;
 }
 
 .answer {

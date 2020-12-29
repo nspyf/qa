@@ -1,4 +1,5 @@
-var API = "http://47.102.204.136:91";
+//var API = "http://47.102.204.136:91";
+var API = "http://127.0.0.1:91";
 
 document.getElementById("login").onclick = function() {
     username = document.getElementById("username").value;
@@ -21,11 +22,9 @@ document.getElementById("login").onclick = function() {
     fetch(API + "/login", requestOptions)
         .then(response => response.json())
         .then((response) => {
-            console.log(response);
             if (response.status == "1") {
                 localStorage.setItem("qaToken", response.data.token)
                 localStorage.setItem("qaUsername", username)
-                console.log(response.data.token);
                 alert("登录成功");
                 window.location.href = "./work.html?user=" + username;
             } else {
