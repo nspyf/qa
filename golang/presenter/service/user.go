@@ -54,6 +54,10 @@ func Login(req *req_mod.Login) (string,error) {
 }
 
 func Information(username string) (interface{},error) {
+	if username == "" {
+		return nil,errors.New("user can't be blank")
+	}
+
 	getUser := &db_mod.User{}
 	tarUser := &db_mod.User{
 		Username: username,

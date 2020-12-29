@@ -110,7 +110,7 @@ func information() gin.HandlerFunc {
 
 		data,err := serv.Information(username)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError,gin.H{
+			c.JSON(http.StatusForbidden,gin.H{
 				"status": -1,
 				"message": err.Error(),
 			})
@@ -140,7 +140,7 @@ func question() gin.HandlerFunc {
 
 		err = serv.Question(req)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError,gin.H{
+			c.JSON(http.StatusForbidden,gin.H{
 				"status": -1,
 				"message": err.Error(),
 			})
@@ -200,7 +200,7 @@ func answer() gin.HandlerFunc {
 
 		err = serv.Answer(publicObj["ID"],req)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError,gin.H{
+			c.JSON(http.StatusForbidden,gin.H{
 				"status": -1,
 				"message": err.Error(),
 			})
