@@ -177,7 +177,7 @@ document.getElementById("delete").onclick = function() {
     optionA = "-1";
 
     var requestOptions = {
-        method: 'Delete',
+        method: 'DELETE',
         headers: myHeaders,
         body: raw
     };
