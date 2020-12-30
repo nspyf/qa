@@ -100,15 +100,22 @@ document.getElementById("ask").onclick = function() {
 }
 
 document.getElementById("respond").onclick = function() {
+    token = localStorage.getItem("qaToken");
+    if (token == null) {
+        alert("未登陆，无权限操作");
+        return
+    }
+
     if (optionQ == "-1") {
         alert("未选择问题");
         return;
     }
+
     content = document.getElementById("content").value;
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Token", localStorage.getItem("qaToken"));
+    myHeaders.append("Token", token);
 
     var raw = JSON.stringify({
         "id": optionQ,
@@ -141,6 +148,12 @@ document.getElementById("respond").onclick = function() {
 }
 
 document.getElementById("delete").onclick = function() {
+    token = localStorage.getItem("qaToken");
+    if (token == null) {
+        alert("未登陆，无权限操作");
+        return
+    }
+
     if (optionQ == "-1" && optionA == "-1") {
         alert("未选择问题");
         return;
@@ -167,7 +180,7 @@ document.getElementById("delete").onclick = function() {
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Token", localStorage.getItem("qaToken"));
+    myHeaders.append("Token", token);
 
     var raw = JSON.stringify({
         "id": id
