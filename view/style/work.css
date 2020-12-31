@@ -75,12 +75,20 @@ pre {
     text-decoration: none;
 }
 
+.button:hover {
+    background-color: blue;
+}
+
 #copy {
     background-color: dodgerblue;
     color: white;
     border-radius: 5px;
     padding: 4px;
     text-decoration: none;
+}
+
+#copy:hover {
+    background-color: blue;
 }
 
 #shareCopy {
@@ -98,10 +106,18 @@ pre {
     text-decoration: none;
 }
 
+.question:hover {
+    background-color: rgb(241, 200, 124);
+}
+
 .answer {
     background-color: skyblue;
     border-radius: 7px;
     padding: 7px;
     color: rgb(100, 100, 100);
     text-decoration: none;
+}
+
+.answer:hover {
+    background-color: rgb(81, 192, 236);
 }
