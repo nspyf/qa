@@ -138,7 +138,7 @@ document.getElementById("respond").onclick = function() {
                 loadDemo();
                 alert("回复成功")
             } else {
-                alert("请求错误:" + response.message + ".请退出重新登录");
+                alert("请求错误:" + response.message + ".token过期请退出重新登录");
             }
         })
         .catch(error => console.log('error', error));
@@ -199,7 +199,7 @@ document.getElementById("delete").onclick = function() {
                 loadDemo();
                 alert("删除成功")
             } else {
-                alert("请求错误:" + response.message + ".请退出重新登录");
+                alert("请求错误:" + response.message + ".token过期请退出重新登录");
             }
         })
         .catch(error => console.log('error', error));
