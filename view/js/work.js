@@ -138,10 +138,7 @@ document.getElementById("respond").onclick = function() {
                 loadDemo();
                 alert("回复成功")
             } else {
-                alert("请求错误:" + response.message + ".请尝试重新登录");
-                localStorage.removeItem("qaToken");
-                localStorage.removeItem("qaUsername");
-                window.location.href = "../";
+                alert("请求错误:" + response.message + ".请退出重新登录");
             }
         })
         .catch(error => console.log('error', error));
@@ -202,10 +199,7 @@ document.getElementById("delete").onclick = function() {
                 loadDemo();
                 alert("删除成功")
             } else {
-                alert("请求错误:" + response.message + ".请尝试重新登录");
-                localStorage.removeItem("qaToken");
-                localStorage.removeItem("qaUsername");
-                window.location.href = "../";
+                alert("请求错误:" + response.message + ".请退出重新登录");
             }
         })
         .catch(error => console.log('error', error));
