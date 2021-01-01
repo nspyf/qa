@@ -107,7 +107,7 @@ pre {
 }
 
 .question:hover {
-    background-color: rgb(241, 200, 124);
+    background-color: rgb(240, 191, 101);
 }
 
 .answer {
@@ -119,5 +119,5 @@ pre {
 }
 
 .answer:hover {
-    background-color: rgb(81, 192, 236);
+    background-color: rgb(51, 181, 233);
 }
